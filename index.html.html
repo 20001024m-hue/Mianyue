@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>阿里山眠月線｜行程手帳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FFFCF6;--ink:#3E3A39;--coral:#F2A497;--sun:#F6D27A;--sky:#A8D3E6;--leaf:#B9DAA5;--r:26px;color-scheme:light}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(76px + env(safe-area-inset-top,0px))}
+body{background:var(--paper);color:var(--ink);font:16px/1.65 "Huninn","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;padding-top:calc(66px + env(safe-area-inset-top,0px));overflow-x:hidden}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+a{color:inherit;text-decoration-thickness:2px}
+nav{position:fixed;top:0;left:0;right:0;z-index:20;background:var(--paper);border-bottom:3px solid var(--ink);padding:calc(8px + env(safe-area-inset-top,0px)) 10px 8px;display:flex;align-items:center;justify-content:space-between;gap:6px}
+nav b{font-size:17px;white-space:nowrap}
+nav div{display:flex;gap:5px}
+nav button{background:var(--paper);border:3px solid var(--ink);border-radius:999px;padding:1px 8px;font-size:14px;transition:transform .15s}
+nav button:nth-child(1){background:var(--sky)}nav button:nth-child(2){background:var(--sun)}nav button:nth-child(3){background:var(--leaf)}nav button:nth-child(4){background:var(--coral)}
+nav button:active,.pill:active{transform:translateY(2px) scale(.95)}
+section,header{max-width:560px;margin:0 auto;padding:26px 16px}
+h2{display:inline-block;font-size:22px;font-weight:400;border:3px solid var(--ink);border-radius:18px;padding:2px 16px;margin-bottom:16px;transform:rotate(-1.5deg);background:var(--c,var(--sun))}
+h3{font-size:18px;font-weight:400;line-height:1.4}
+.card{background:var(--paper);border:3px solid var(--ink);border-radius:var(--r);padding:16px;box-shadow:0 5px 0 var(--ink);position:relative}
+.scene{border:3px solid var(--ink);border-radius:34px;overflow:hidden;box-shadow:0 6px 0 var(--ink);background:var(--sky)}
+.scene svg{display:block;width:100%;height:auto}
+h1{font-size:38px;font-weight:400;line-height:1.3;margin:22px 0 4px;display:inline-block;box-shadow:inset 0 -.38em 0 var(--sun)}
+.sub{font-size:16px;margin-bottom:18px}
+.cdt{font-size:15px;margin-bottom:8px}
+.cd{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.u{border:3px solid var(--ink);border-radius:20px;text-align:center;padding:8px 2px 6px;line-height:1.2}
+.u b{display:block;font-size:28px;font-weight:400}.u span{font-size:13px}
+.u:nth-child(1){background:var(--coral)}.u:nth-child(2){background:var(--sun)}.u:nth-child(3){background:var(--sky)}.u:nth-child(4){background:var(--leaf)}
+.go{grid-column:1/-1;border:3px solid var(--ink);border-radius:20px;background:var(--leaf);text-align:center;padding:12px;font-size:18px}
+.seg{display:flex;gap:8px;margin-bottom:16px}
+.pill{flex:1;border:3px solid var(--ink);border-radius:999px;background:var(--paper);padding:5px 8px;font-size:15px;line-height:1.3;transition:transform .15s}
+.pill[aria-selected=true]{background:var(--sun);box-shadow:0 3px 0 var(--ink);animation:bn .55s cubic-bezier(.34,1.8,.64,1)}
+.hsr{--c:var(--coral)}.tra{--c:var(--sun)}.bus{--c:var(--sky)}.rail{--c:var(--leaf)}.rest{--c:var(--paper)}
+.tag{display:inline-block;border:2.5px solid var(--ink);border-radius:999px;padding:0 10px;font-size:13px;line-height:1.5;background:var(--c,var(--paper));margin:0 4px 4px 0}
+.chip{display:inline-block;border:2px dashed var(--ink);border-radius:999px;padding:0 8px;font-size:12px;margin-left:4px}
+.tk{margin-bottom:18px}
+.th{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.sg{padding:10px 0;border-top:3px dashed var(--ink)}
+.th+.sg{border-top:0}
+.sg div{display:flex;gap:10px;align-items:baseline}.sg div b{font-weight:400;min-width:52px;font-size:19px}
+.sg small,.m{font-size:13.5px;opacity:.85}
+.tot{display:flex;justify-content:space-between;border-top:3px solid var(--ink);padding-top:10px;margin-top:4px}
+.tl{list-style:none;padding:0 0 0 34px;position:relative}
+.tl::before{content:"";position:absolute;left:11px;top:8px;bottom:12px;border-left:3px dashed var(--ink)}
+.it{position:relative;margin-bottom:20px;animation:pop .65s cubic-bezier(.34,1.56,.64,1) both;animation-delay:calc(var(--i)*70ms)}
+.dot{position:absolute;left:-34px;top:16px;width:24px;height:24px;border:3px solid var(--ink);border-radius:50%;background:var(--c,var(--paper))}
+.tm{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:4px}
+.tm b{font-weight:400;border:3px solid var(--ink);border-radius:12px;padding:0 9px;background:var(--paper);font-size:15px}
+.grp{background:var(--ink);color:var(--paper);border-radius:999px;padding:0 10px;font-size:13px}
+.must{position:absolute;right:-6px;top:-12px;background:var(--coral);border:3px solid var(--ink);border-radius:14px;padding:0 10px;transform:rotate(7deg);font-size:15px}
+.pl{font-size:14.5px;margin:2px 0 6px}
+.note{margin-top:8px;border:2.5px dashed var(--ink);border-radius:14px;padding:4px 10px;font-size:14px;line-height:1.5}
+.note.w{background:var(--sun);border-style:solid}
+.sp{list-style:none;padding:0;margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;counter-reset:s}
+.sp li{counter-increment:s;border:2.5px solid var(--ink);border-radius:999px;background:var(--leaf);padding:0 10px 0 4px;font-size:13.5px;display:flex;align-items:center;gap:5px;line-height:1.7}
+.sp li::before{content:counter(s);background:var(--paper);border:2px solid var(--ink);border-radius:50%;width:20px;height:20px;font-size:11px;display:grid;place-items:center;line-height:1}
+.bar{height:22px;border:3px solid var(--ink);border-radius:999px;overflow:hidden;background:var(--paper);margin-bottom:6px}
+.bar i{display:block;height:100%;width:0;background:var(--leaf);border-right:3px solid var(--ink);transition:width .4s cubic-bezier(.34,1.56,.64,1)}
+.cl .card{margin-bottom:18px}.cl h3{margin-bottom:6px}
+.ck{display:flex;gap:12px;align-items:flex-start;padding:7px 0;position:relative;cursor:pointer}
+.ck input{position:absolute;opacity:0;width:28px;height:28px;margin:0}
+.bx{flex:none;width:28px;height:28px;border:3px solid var(--ink);border-radius:9px;position:relative;background:var(--paper)}
+input:checked+.bx{background:var(--leaf);animation:bn .4s cubic-bezier(.34,1.8,.64,1)}
+input:checked+.bx::after{content:"";position:absolute;left:7px;top:1px;width:7px;height:14px;border:solid var(--ink);border-width:0 3px 3px 0;transform:rotate(40deg)}
+input:checked~span:last-child{text-decoration:line-through;opacity:.6}
+input:focus-visible+.bx{outline:3px solid var(--coral);outline-offset:2px}
+dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin-top:10px;font-size:15px}
+dt{background:var(--sky);border:2.5px solid var(--ink);border-radius:999px;padding:0 10px;font-size:13.5px;height:fit-content;white-space:nowrap}
+dd{margin:0}
+.cost{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.cost .card{text-align:center;padding:12px 8px}.cost b{display:block;font-size:26px;font-weight:400}
+footer{text-align:center;padding:10px 16px 48px;font-size:15px}
+.cl1,.cl2{animation:dr 14s ease-in-out infinite alternate}.cl2{animation-duration:19s;animation-delay:-6s}
+.sun{animation:bob 4s ease-in-out infinite}
+.tr{transform-box:fill-box;transform-origin:50% 100%;animation:sw 5s ease-in-out infinite alternate}.tr:nth-of-type(4){animation-delay:-2s}.tr:nth-of-type(5){animation-delay:-3.5s}
+.trn{animation:roll 6s ease-in-out infinite alternate}
+.sm{transform-box:fill-box;transform-origin:center;animation:sm 3.6s ease-out infinite;opacity:0}.sm:nth-of-type(7){animation-delay:1.2s}.sm:nth-of-type(8){animation-delay:2.4s}
+.pt{animation:fall 9s linear infinite;opacity:0}.pt:nth-of-type(2){animation-delay:-3s;animation-duration:11s}.pt:nth-of-type(3){animation-delay:-6s;animation-duration:8s}
+.mk{transform-box:fill-box;transform-origin:50% 100%;animation:tilt 4.5s ease-in-out infinite alternate}
+@keyframes pop{0%{opacity:0;transform:translateY(26px) scale(.9)}60%{opacity:1;transform:translateY(-6px) scale(1.03)}100%{opacity:1;transform:none}}
+@keyframes bn{0%{transform:scale(.85)}55%{transform:scale(1.14)}100%{transform:scale(1)}}
+@keyframes dr{to{transform:translateX(40px)}}
+@keyframes bob{50%{transform:translateY(-4px)}}
+@keyframes sw{to{transform:rotate(2deg)}}
+@keyframes roll{to{transform:translateX(10px)}}
+@keyframes sm{0%{opacity:0;transform:translate(0,0) scale(.5)}25%{opacity:1}100%{opacity:0;transform:translate(-16px,-34px) scale(1.2)}}
+@keyframes fall{0%{opacity:0;transform:translate(0,-10px) rotate(0)}10%,85%{opacity:1}100%{opacity:0;transform:translate(-30px,210px) rotate(200deg)}}
+@keyframes tilt{to{transform:rotate(-4deg)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.sm,.pt{opacity:0}}
+</style>
+</head>
+<body>
+<nav aria-label="主選單">
+<b aria-hidden="true">🚂</b>
+<div><button data-t="hero">首頁</button><button data-t="go">交通</button><button data-t="plan">行程</button><button data-t="todo">清單</button><button data-t="stay">住宿</button></div>
+</nav>
+
+<header id="hero">
+<div class="scene">
+<svg viewBox="0 0 360 260" role="img" aria-label="插畫：阿里山小火車穿過紅檜森林，遠方有雲海，石猴坐在岩石上">
+<g stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+<circle class="sun" cx="290" cy="62" r="26" fill="#F6D27A"/>
+<g class="cl1"><path transform="translate(22 36)" d="M0 26Q-6 14 6 12Q10 0 24 4Q34 -2 42 8Q56 8 54 20Q54 28 44 28H8Q2 28 0 26Z" fill="#FFFCF6"/></g>
+<g class="cl2"><path transform="translate(170 78) scale(.8)" d="M0 26Q-6 14 6 12Q10 0 24 4Q34 -2 42 8Q56 8 54 20Q54 28 44 28H8Q2 28 0 26Z" fill="#FFFCF6"/></g>
+<path d="M0 172L58 102L100 142L168 74L246 150L300 112L360 160V260H0Z" fill="#B9DAA5"/>
+<path d="M0 178Q30 162 60 178T120 178T180 178T240 178T300 178T360 178V215H0Z" fill="#FFFCF6"/>
+<path d="M0 208Q90 192 180 208T360 202V260H0Z" fill="#B9DAA5"/>
+<g class="tr"><rect x="31" y="178" width="9" height="32" fill="#F2A497"/><path d="M35 92L15 148H55Z" fill="#B9DAA5"/><path d="M35 120L8 180H62Z" fill="#B9DAA5"/></g>
+<g class="tr"><rect x="79" y="190" width="7" height="22" fill="#F2A497"/><path d="M82 126L66 168H98Z" fill="#B9DAA5"/><path d="M82 146L60 192H104Z" fill="#B9DAA5"/></g>
+<g class="tr"><rect x="246" y="184" width="8" height="28" fill="#F2A497"/><path d="M250 110L232 160H268Z" fill="#B9DAA5"/><path d="M250 134L224 186H276Z" fill="#B9DAA5"/></g>
+<path d="M0 238H360" stroke-width="3"/><path d="M0 247H360" stroke-width="7" stroke-dasharray="4 10"/>
+<g class="trn">
+<rect x="212" y="204" width="70" height="30" rx="10" fill="#B9DAA5"/>
+<rect x="222" y="212" width="12" height="11" rx="3" fill="#A8D3E6" stroke-width="2.5"/><rect x="242" y="212" width="12" height="11" rx="3" fill="#A8D3E6" stroke-width="2.5"/><rect x="262" y="212" width="12" height="11" rx="3" fill="#A8D3E6" stroke-width="2.5"/>
+<path d="M200 222H214"/>
+<rect x="100" y="204" width="70" height="30" rx="12" fill="#F2A497"/>
+<rect x="112" y="190" width="14" height="16" rx="3" fill="#F6D27A"/>
+<rect x="162" y="186" width="44" height="48" rx="10" fill="#F6D27A"/>
+<rect x="172" y="196" width="24" height="17" rx="5" fill="#A8D3E6"/>
+<circle cx="114" cy="237" r="9" fill="#FFFCF6"/><circle cx="141" cy="237" r="9" fill="#FFFCF6"/><circle cx="188" cy="237" r="9" fill="#FFFCF6"/><circle cx="236" cy="237" r="8" fill="#FFFCF6"/><circle cx="266" cy="237" r="8" fill="#FFFCF6"/>
+<circle class="sm" cx="119" cy="182" r="6" fill="#FFFCF6" stroke-width="2.5"/><circle class="sm" cx="119" cy="182" r="6" fill="#FFFCF6" stroke-width="2.5"/><circle class="sm" cx="119" cy="182" r="6" fill="#FFFCF6" stroke-width="2.5"/>
+</g>
+<ellipse cx="324" cy="214" rx="28" ry="14" fill="#FFFCF6"/>
+<g class="mk"><ellipse cx="324" cy="200" rx="10" ry="10" fill="#F6D27A"/><circle cx="309" cy="181" r="5" fill="#F6D27A"/><circle cx="339" cy="181" r="5" fill="#F6D27A"/><circle cx="324" cy="182" r="14" fill="#F6D27A"/><ellipse cx="324" cy="185" rx="8.5" ry="7" fill="#FFFCF6" stroke-width="2"/><circle cx="320" cy="182" r="1.6" fill="#3E3A39" stroke-width="1"/><circle cx="328" cy="182" r="1.6" fill="#3E3A39" stroke-width="1"/><path d="M320 188Q324 191 328 188" stroke-width="2" fill="none"/></g>
+</g>
+<g fill="#F2A497" stroke="#3E3A39" stroke-width="2"><ellipse class="pt" cx="150" cy="20" rx="5" ry="3.5"/><ellipse class="pt" cx="210" cy="10" rx="5" ry="3.5"/><ellipse class="pt" cx="100" cy="30" rx="5" ry="3.5"/></g>
+</svg>
+</div>
+<h1>阿里山眠月線</h1>
+<p class="sub">猩猩一起強大・10/27（二）至 10/28（三）・2 天 1 夜</p>
+<p class="cdt">距離第一班車出發（10/27 07:46）還有</p>
+<div class="cd" id="cd" aria-live="off"></div>
+</header>
+
+<section id="go">
+<h2 style="--c:var(--sky)">交通票卡</h2>
+<div class="seg" id="grp" role="tablist" aria-label="選擇出發組別"></div>
+<div id="tk"></div>
+</section>
+
+<section id="plan">
+<h2 style="--c:var(--sun)">每日行程</h2>
+<div class="seg" id="days" role="tablist" aria-label="選擇日期"></div>
+<ol class="tl" id="tl"></ol>
+</section>
+
+<section id="todo" class="cl">
+<h2 style="--c:var(--leaf)">出發前待辦</h2>
+<div class="bar" role="progressbar" aria-label="完成進度" id="pb"><i id="pf"></i></div>
+<p class="m" id="pt" style="margin-bottom:14px"></p>
+<div id="cl"></div>
+</section>
+
+<section id="stay">
+<h2 style="--c:var(--coral)">住宿與花費</h2>
+<div class="card">
+<h3>萬國別館</h3>
+<dl>
+<dt>入住</dt><dd>10/27 12:40–13:00，先寄行李</dd>
+<dt>退房</dt><dd>10/28 08:00–08:30，退房後可寄放行李</dd>
+<dt>費用</dt><dd>訂金 $1,080 已付；使用國旅補助後仍須付 $1,720</dd>
+<dt>付款</dt><dd>現金，已預訂（表格花費欄記 $700）</dd>
+<dt>提醒</dt><dd>不提供一次性用品及瓶裝水，但有保溫壺及飲水機</dd>
+<dt>接送</dt><dd>晃完森 2488m 後，打給旅館：<a href="tel:052679777">05-2679777</a></dd>
+</dl>
+</div>
+<div class="cost">
+<div class="card" style="background:var(--sky)">台北組花費<b>$3,790</b></div>
+<div class="card" style="background:var(--leaf)">高雄組花費<b>$2,344</b></div>
+</div>
+</section>
+
+<footer>路上小心，平安回家 🌲</footer>
+
+<script>
+const $=s=>document.querySelector(s);
+const hs=(c,l)=>[c,l];
+/* 倒數 */
+const T=new Date('2026-10-27T07:46:00+08:00'),E=new Date('2026-10-28T19:10:00+08:00');
+function tick(){
+  const n=Date.now(),s=Math.floor((T-n)/1000);
+  if(s<=0){$('#cd').innerHTML='<p class="go">'+(n<E?'旅程進行中，出發囉！':'旅程結束，平安回家 ♡')+'</p>';return}
+  const v=[Math.floor(s/86400),Math.floor(s%86400/3600),Math.floor(s%3600/60),s%60],u=['天','時','分','秒'];
+  $('#cd').innerHTML=v.map((x,i)=>'<div class="u"><b>'+String(x).padStart(2,'0')+'</b><span>'+u[i]+'</span></div>').join('');
+}
+tick();setInterval(tick,1000);
+/* 導覽 */
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>document.getElementById(b.dataset.t).scrollIntoView());
+/* 交通票卡 */
+const TK={
+ '台北組':{go:[{c:'hsr',l:'高鐵',a:'07:46',an:'高鐵台北站',b:'09:13',bn:'高鐵嘉義站',x:'1 小時 27 分・$1,080'},{c:'bus',l:'台灣好行 阿里山 A 線 7329',a:'09:30',an:'高鐵嘉義站 2 號出口 7 號月台',b:'12:00',bn:'阿里山轉運站',x:'2 小時 30 分・$630'}],
+  back:[{c:'bus',l:'接駁巴士（最後一班 16:40）',a:'16:40',an:'阿里山轉運站',b:'19:10',bn:'高鐵嘉義站',x:'2 小時 30 分'},{c:'hsr',l:'高鐵',a:'待定',an:'高鐵嘉義站',b:'待定',bn:'高鐵台北站',x:'$1,080'}],tot:'$3,790'},
+ '高雄組':{go:[{c:'tra',l:'台鐵 自強（3000）162',a:'07:49',an:'鳳山火車站',b:'09:03',bn:'嘉義火車站（前站）',x:'1 小時 14 分・$357'},{c:'bus',l:'阿里山 B 線 7322',a:'09:10',an:'嘉義火車站（前站）',b:'11:40',bn:'阿里山轉運站',x:'2 小時 30 分'}],
+  back:[{c:'bus',l:'接駁巴士（最後一班 17:10）',a:'16:10',an:'阿里山轉運站',b:'18:40',bn:'嘉義火車站（前站）',x:'2 小時 30 分'},{c:'tra',l:'台鐵',a:'待定',an:'嘉義火車站（前站）',b:'待定',bn:'鳳山火車站',x:'$357'}],tot:'$2,344'}
+};
+const segHTML=o=>'<div class="sg"><span class="tag '+o.c+'">'+o.l+'</span><div><b>'+o.a+'</b><span>'+o.an+'</span></div><div><b>'+o.b+'</b><span>'+o.bn+'</span></div><small>'+o.x+'</small></div>';
+function showTk(g){
+  const D=TK[g];
+  document.querySelectorAll('#grp .pill').forEach(p=>p.setAttribute('aria-selected',p.dataset.g===g));
+  $('#tk').innerHTML=[['去程','go'],['回程','back']].map(([n,k])=>'<div class="card tk" style="animation:pop .6s cubic-bezier(.34,1.56,.64,1) both"><div class="th"><h3>'+n+'・'+g+'</h3><span class="chip">未預定</span></div>'+D[k].map(segHTML).join('')+'</div>').join('')+'<div class="tot"><span>全程花費小計</span><b>'+D.tot+'</b></div>';
+}
+$('#grp').innerHTML=Object.keys(TK).map(g=>'<button class="pill" role="tab" data-g="'+g+'">'+g+'</button>').join('');
+$('#grp').onclick=e=>{const b=e.target.closest('.pill');if(b)showTk(b.dataset.g)};
+showTk('台北組');
+/* 每日行程 */
+const DAYS=[
+{k:'Day 1',d:'10/27（二）',items:[
+ {t:'07:46–09:13',g:'台北組',ti:'出發',pl:'高鐵台北站 → 高鐵嘉義站',tg:[hs('hsr','高鐵')],m:'1 小時 27 分・$1,080',s:1},
+ {t:'07:49–09:03',g:'高雄組',ti:'出發',pl:'鳳山火車站 → 嘉義火車站（前站）',tg:[hs('tra','台鐵')],m:'自強（3000）162・1 小時 14 分・$357',s:1},
+ {t:'09:10–11:40',g:'高雄組',ti:'轉乘阿里山 B 線',pl:'嘉義火車站（前站）→ 阿里山轉運站',tg:[hs('bus','巴士')],m:'7322・2 小時 30 分',s:1},
+ {t:'09:30–12:00',g:'台北組',ti:'轉乘台灣好行',pl:'高鐵嘉義站 2 號出口 7 號月台 → 阿里山轉運站',tg:[hs('bus','台灣好行')],m:'阿里山 A 線 7329・2 小時 30 分・$630',s:1},
+ {t:'11:40–12:40',ti:'休息發呆',pl:'森 2488m × 馬羊家茶',tg:[hs('rest','休息')],n:[['晃完打給旅館來接送：<a href="tel:052679777">05-2679777</a>']]},
+ {t:'12:40–13:00',ti:'Check in／寄行李',pl:'萬國別館',tg:[hs('rest','住宿')],n:[['均已付訂金 $1,080；使用國旅補助後仍須付 $1,720'],['不提供一次性用品及瓶裝水，但有保溫壺及飲水機']]},
+ {t:'13:30–13:36',ti:'移動',pl:'阿里山火車站 → 沼平火車站',tg:[hs('rail','森鐵')],m:'6 分・$100',s:1},
+ {t:'13:36 起',ti:'步道散策',pl:'從櫻之道入口出發・約 3 小時',tg:[hs('rest','步行')],must:1,sp:['櫻之道入口','1913 阿里山舊事所','三代木','阿里山博物館','阿里山慈雲寺','巨木群棧道','阿里山受鎮宮','姊妹潭','林之道入口']}
+]},
+{k:'Day 2',d:'10/28（三）',items:[
+ {t:'07:00–08:00',ti:'吃早餐',pl:'萬國別館・1 小時',tg:[hs('rest','住宿')],n:[['記得吃飽，補充水分']]},
+ {t:'08:00–08:30',ti:'Check out',pl:'萬國別館・30 分',tg:[hs('rest','住宿')],n:[['退房後寄放行李']]},
+ {t:'08:30–08:36',ti:'移動',pl:'阿里山火車站 → 沼平火車站',tg:[hs('rail','森鐵')],m:'6 分・$100',s:1},
+ {t:'08:36–15:00',ti:'眠月線健行',pl:'塔山步道・6 小時 24 分',tg:[hs('rest','健行')],must:1,
+  n:[['十字分道是祝山線鐵道與眠月線舊鐵道的交叉點；祝山線仍有火車行駛，不可走在鐵道上',1],['塔山車站遺址：記得投遞申請書，並多帶一份在身上',1]],
+  sp:['阿里山森林鐵路十字分道','眠月線','眠月線第一明隧道','眠月線崩塌處','塔山車站遺址','眠月車站舊址','眠月石猴','原路折返']},
+ {t:'15:10–15:17',ti:'移動',pl:'神木車站 → 阿里山火車站',tg:[hs('rail','森鐵')],m:'7 分・$100',s:1},
+ {t:'16:10–18:40',g:'高雄組',ti:'賦歸',pl:'阿里山轉運站 → 嘉義火車站（前站）→ 鳳山火車站',tg:[hs('bus','巴士'),hs('tra','台鐵')],m:'車程 2 小時 30 分・台鐵 $357',s:1,n:[['提早下山可提早走，最後一班車 17:10']]},
+ {t:'16:40–19:10',g:'台北組',ti:'解散・賦歸',pl:'阿里山轉運站 → 高鐵嘉義站 → 高鐵台北站',tg:[hs('bus','巴士'),hs('hsr','高鐵')],m:'車程 2 小時 30 分・高鐵 $1,080',s:1,n:[['提早下山可提早走，最後一班車 16:40']]}
+]}];
+function showDay(i){
+  document.querySelectorAll('#days .pill').forEach((p,j)=>p.setAttribute('aria-selected',j===i));
+  $('#tl').innerHTML=DAYS[i].items.map((o,j)=>
+   '<li class="it" style="--i:'+j+'"><span class="dot '+o.tg[0][0]+'"></span><div class="card">'+(o.must?'<span class="must">必去</span>':'')+
+   '<div class="tm"><b>'+o.t+'</b>'+(o.g?'<span class="grp">'+o.g+'</span>':'')+'</div>'+
+   '<h3>'+o.ti+'</h3><p class="pl">'+o.pl+'</p>'+
+   o.tg.map(t=>'<span class="tag '+t[0]+'">'+t[1]+'</span>').join('')+
+   (o.m?'<span class="m">'+o.m+'</span>':'')+(o.s?'<span class="chip">未預定</span>':'')+
+   (o.n||[]).map(n=>'<p class="note'+(n[1]?' w':'')+'">'+n[0]+'</p>').join('')+
+   (o.sp?'<ol class="sp">'+o.sp.map(s=>'<li>'+s+'</li>').join('')+'</ol>':'')+'</div></li>').join('');
+}
+$('#days').innerHTML=DAYS.map((d,i)=>'<button class="pill" role="tab" data-i="'+i+'">'+d.k+'<br>'+d.d+'</button>').join('');
+$('#days').onclick=e=>{const b=e.target.closest('.pill');if(b)showDay(+b.dataset.i)};
+showDay(0);
+/* 待辦清單 */
+const CL=[
+ ['預訂（表格顯示「未預定」）',['高鐵 台北⇄嘉義（台北組）','台鐵 自強（3000）162 鳳山→嘉義（高雄組）','台灣好行 阿里山 A 線 7329（台北組）','阿里山 B 線 7322（高雄組）','阿里山森林鐵路 小火車（沼平、神木）']],
+ ['民宿',['牙膏','牙刷','梳子']],
+ ['登山',['證件與許可證：身分證與許可證正本，供林務局或相關人員查驗','申請書（投遞用，並多帶一份在身上）','頭燈','登山用雨衣與保暖衣物，勿穿棉質','抓地力好的登山鞋或健行鞋','水壺','手套','行動糧']]
+];
+const KEY='alishan-todo';let S=[];
+try{S=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){S=[]}
+$('#cl').innerHTML=CL.map((g,i)=>'<div class="card"><h3>'+g[0]+'</h3>'+g[1].map((x,j)=>'<label class="ck"><input type="checkbox" data-k="'+i+'-'+j+'"'+(S.includes(i+'-'+j)?' checked':'')+'><span class="bx"></span><span>'+x+'</span></label>').join('')+'</div>').join('');
+const N=CL.reduce((a,g)=>a+g[1].length,0);
+function prog(){const c=document.querySelectorAll('#cl input:checked').length;$('#pf').style.width=c/N*100+'%';$('#pt').textContent='已完成 '+c+' / '+N+' 項'+(c===N?'，準備出發！':'');$('#pb').setAttribute('aria-valuenow',c);$('#pb').setAttribute('aria-valuemax',N)}
+$('#cl').onchange=e=>{
+  S=[...document.querySelectorAll('#cl input:checked')].map(i=>i.dataset.k);prog();
+  try{localStorage.setItem(KEY,JSON.stringify(S))}catch(x){}
+};
+prog();
+</script>
+</body>
+</html>
